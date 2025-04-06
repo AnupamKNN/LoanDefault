@@ -5,24 +5,25 @@ columns:
   Previous_Defaults: int64
   Interest_Rate: float64
   Number_of_Dependents: int64
-  Loan_Purpose: object
-  Residence_Status: object
-  Home_Ownership: object
-  Employment_Type: object
+  Loan_Purpose: str
+  Residence_Status: str
+  Home_Ownership: str
+  Employment_Type: str
   Default: int64
 
 numerical_columns:
-  - Applicant_Income
-  - Loan_Amount
-  - Credit_Score
-  - Previous_Defaults
-  - Interest_Rate
-  - Number_of_Dependents
+  - Applicant_Income: int64
+  - Loan_Amount: int64
+  - Credit_Score: int64
+  - Previous_Defaults: int64
+  - Interest_Rate: float64
+  - Number_of_Dependents: int64
 
 categorical_columns:
-  - Loan_Purpose
-  - Residence_Status
-  - Home_Ownership
-  - Employment_Type
+  - Loan_Purpose: str
+  - Residence_Status: str
+  - Home_Ownership: str
+  - Employment_Type: str
 
-target_column: Default
+target_column: 
+- Default: int64

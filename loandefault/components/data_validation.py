@@ -72,6 +72,7 @@ class DataValidation:
         except Exception as e:
             raise LoanDefaultException(e, sys)
         
+        
 
     def initiate_data_validation(self)->DataValidationArtifact:
         try:
@@ -103,6 +104,7 @@ class DataValidation:
                 raise Exception("\n".join(error_message))
             else:
                 logging.info("Numerical columns existance validation completed successfully. No errors found.")
+            
 
             # Let's check datadrift
             status = self.detect_dataset_drift(base_df = train_dataframe, current_df = test_dataframe)
