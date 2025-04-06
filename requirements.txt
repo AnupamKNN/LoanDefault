@@ -4,5 +4,11 @@ matplotlib
 seaborn
 scikit-learn
 pyaml
-
+joblib
+tqdm
+xgboost
+imblearn
+pymongo
+python-dotenv
+certifi
 # - e.
