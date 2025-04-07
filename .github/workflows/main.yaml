@@ -25,6 +25,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Authenticate to DagsHub
+        run: |
+          git config --global user.name "${{ secrets.DAGSHUB_USERNAME }}"
+          git config --global user.email "your-email@example.com"
+          git remote set-url origin https://${{ secrets.DAGSHUB_USERNAME }}:${{ secrets.DAGSHUB_TOKEN }}@dagshub.com/${{ secrets.DAGSHUB_USERNAME }}/LoanDefault.git
+
       - name: Run training pipeline
         run: |
           python loandefault/pipeline/training_pipeline.py
@@ -68,4 +74,4 @@ jobs:
         run: |
           curl -X POST "https://api.render.com/v1/services/${SERVICE_ID}/deploys" \
           -H "Accept: application/json" \
-          -H "Authorization: Bearer ${RENDER_API_KEY}"
+          -H "Authorization: Bearer ${RENDER_API_KEY }}"
