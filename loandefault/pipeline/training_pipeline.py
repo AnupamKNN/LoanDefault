@@ -28,6 +28,17 @@ from loandefault.entity.artifact_entity import (
 
 import sys
 
+DAGSHUB_USERNAME = os.getenv("DAGSHUB_USERNAME")
+DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN")
+
+if DAGSHUB_USERNAME and DAGSHUB_TOKEN:
+    os.environ["MLFLOW_TRACKING_USERNAME"] = DAGSHUB_USERNAME
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = DAGSHUB_TOKEN
+    os.environ["MLFLOW_TRACKING_URI"] = f"https://dagshub.com/{DAGSHUB_USERNAME}/LoanDefault.mlflow"
+else:
+    print("❗❗❗ AUTHORIZATION REQUIRED ❗❗❗")
+    sys.exit(1)
+
 class TrainingPipeline:
     def __init__(self):
         self.training_pipeline_config = TrainingPipelineConfig()
