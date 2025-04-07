@@ -1,4 +1,4 @@
-name: Train, Push to DagsHub, Dockerize and Deploy
+name: Train and Deploy ML Model with Docker
 
 on:
   push:
@@ -17,28 +17,24 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install dvc[gs] mlflow
 
-      - name: Configure Git for DagsHub
-        run: |
-          git config --global user.email "anupam848484@gmail.com"
-          git config --global user.name "Anupam Anand Singh"
-          git remote set-url origin https://${{ secrets.DAGSHUB_TOKEN }}@dagshub.com/AnupamKNN/LoanDefault.git
+          # Optional: Login to DagsHub if you're using it
+          if [ ! -z "${{ secrets.DAGSHUB_TOKEN }}" ]; then
+            dvc remote modify origin --local auth basic
+            dvc remote modify origin --local user ${{ secrets.DAGSHUB_USER }}
+            dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
+          fi
 
-      - name: Train the model
+      - name: Run training pipeline
         run: |
           python loandefault/pipeline/training_pipeline.py
-
-      - name: Push DVC tracked files to DagsHub
-        run: |
-          dvc remote modify origin --local auth basic
-          dvc remote modify origin --local user AnupamKNN
-          dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
-          dvc push
 
   build-and-push:
     runs-on: ubuntu-latest
@@ -80,4 +76,3 @@ jobs:
           curl -X POST "https://api.render.com/v1/services/${SERVICE_ID}/deploys" \
           -H "Accept: application/json" \
           -H "Authorization: Bearer ${RENDER_API_KEY}"
-#
