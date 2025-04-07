@@ -25,13 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-          # Optional: Login to DagsHub if you're using it
-          if [ ! -z "${{ secrets.DAGSHUB_TOKEN }}" ]; then
-            dvc remote modify origin --local auth basic
-            dvc remote modify origin --local user ${{ secrets.DAGSHUB_USER }}
-            dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
-          fi
-
       - name: Run training pipeline
         run: |
           python loandefault/pipeline/training_pipeline.py
