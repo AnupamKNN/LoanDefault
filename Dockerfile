@@ -18,6 +18,11 @@ RUN pip install --upgrade pip && \
 # Copy the rest of the application
 COPY . .
 
+# Copy model and preprocessor files into the container
+COPY final_model/model.pkl final_model/model.pkl
+COPY final_model/preprocessor.pkl final_model/preprocessor.pkl
+
+
 # Expose the Flask port
 EXPOSE 8000
 
