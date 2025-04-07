@@ -11,4 +11,7 @@ imblearn
 pymongo
 python-dotenv
 certifi
+mlflow
+dagshub
+
 # - e.
