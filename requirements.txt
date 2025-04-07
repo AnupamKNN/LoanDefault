@@ -13,5 +13,7 @@ python-dotenv
 certifi
 mlflow
 dagshub
+dvc[dags]
+dvc[s3]
 
 # - e.
