@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Batch Prediction - Loan Default</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url("{{ url_for('static', filename='Images/batch.jpg') }}") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+
+    .glass-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
+      color: #002244;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #002244;
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #002244;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.7);
+      width: 100%;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .btn-glow {
+      background-color: #003366;
+      color: white;
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      z-index: 1;
+    }
+
+    .btn-glow::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(270deg, #00f1ff, #0078ff, #00c8ff);
+      background-size: 600% 600%;
+      z-index: -1;
+      filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 12px;
+      animation: gradientMove 6s ease infinite;
+    }
+
+    .btn-glow:hover::before {
+      opacity: 1;
+    }
+
+    .btn-glow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px rgba(0, 241, 255, 0.6), 0 0 20px rgba(0, 120, 255, 0.5);
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .message {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    a.btn-glow {
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    @media (max-width: 600px) {
+      .glass-container {
+        padding: 25px 20px;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .btn-glow {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-container">
+    <h2>Batch Loan Default Prediction</h2>
+    <form action="/batch_predict" method="POST" enctype="multipart/form-data">
+      <label for="csv_file">Upload CSV File</label>
+      <input type="file" name="csv_file" accept=".csv" required>
+
+      <div class="buttons">
+        <button class="btn-glow" type="submit">Predict</button>
+        <a href="/" class="btn-glow">Back to Home Page</a>
+      </div>
+    </form>
+
+    {% if predictions %}
+    <div class="message">
+      <p>{{ predictions|safe }}</p>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

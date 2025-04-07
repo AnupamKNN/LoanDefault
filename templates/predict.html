@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Default Prediction</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url("{{ url_for('static', filename='Images/predict.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .glass-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.3);
+            color: #002244;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #002244;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #002244;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+
+        .btn-glow {
+            position: relative;
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 15px 10px 0 0;
+            color: #fff;
+            font-weight: bold;
+            background-color: #003366;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 0;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-glow::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00f0ff, #007bff, #00f0ff, #007bff);
+            background-size: 400% 400%;
+            z-index: -1;
+            filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
+            animation: gradientMove 5s ease infinite;
+        }
+
+        .btn-glow:hover::before {
+            opacity: 1;
+        }
+
+        .btn-glow:hover {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .prediction-result {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        a.btn-glow {
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .glass-container {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn-glow {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <h2>Loan Default Prediction</h2>
+        <form action="/predict" method="POST">
+            <label for="Applicant_Income">Applicant Income</label>
+            <input type="text" name="Applicant_Income" required>
+
+            <label for="Loan_Amount">Loan Amount</label>
+            <input type="text" name="Loan_Amount" required>
+
+            <label for="Credit_Score">Credit Score</label>
+            <input type="text" name="Credit_Score" required>
+
+            <label for="Previous_Defaults">Previous Defaults</label>
+            <input type="text" name="Previous_Defaults" required>
+
+            <label for="Interest_Rate">Interest Rate (%)</label>
+            <input type="text" name="Interest_Rate" required>
+
+            <label for="Number_of_Dependents">Number of Dependents</label>
+            <input type="text" name="Number_of_Dependents" required>
+
+            <label for="Loan_Purpose">Loan Purpose</label>
+            <select name="Loan_Purpose" required>
+                {% for option in Loan_Purpose %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="Residence_Status">Residence Status</label>
+            <select name="Residence_Status" required>
+                {% for option in Residence_Status %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="Home_Ownership">Home Ownership</label>
+            <select name="Home_Ownership" required>
+                {% for option in Home_Ownership %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="Employment_Type">Employment Type</label>
+            <select name="Employment_Type" required>
+                {% for option in Employment_Type %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="buttons">
+                <button class="btn-glow" type="submit">Predict</button>
+                <a href="/" class="btn-glow">Back to Home Page</a>
+            </div>
+        </form>
+
+        {% if predicted_salary %}
+        <div class="prediction-result">
+            <p>Prediction: <strong>{{ predicted_salary }}</strong></p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

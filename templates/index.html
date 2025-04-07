@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neo Finance - Loan Default Prediction</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+    :root {
+      --bg-color: #1c1f2b;
+      --container-bg: rgba(44, 50, 64, 0.4);
+      --text-color: #ffffff;
+      --accent-color: #004080;
+      --footer-color: #cccccc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: url('https://www.shutterstock.com/image-photo/abstract-glowing-big-data-forex-600nw-2119930133.jpg') no-repeat center center/cover;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+      padding: 20px;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(28, 31, 43, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      width: 100%;
+      background: var(--container-bg);
+      border-radius: 15px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      width: 100px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: cyan;
+      margin-bottom: 20px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      font-size: 1.15rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text-color);
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .btn {
+      position: relative;
+      padding: 14px 24px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #ffffff;
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #00f6ff, #0061ff, #00f6ff, #0061ff);
+      background-size: 400% 400%;
+      border-radius: inherit;
+      z-index: -1;
+      animation: gradientMove 6s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 10px rgba(0, 241, 255, 0.6), 0 0 20px rgba(0, 120, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85rem;
+      color: var(--footer-color);
+      z-index: 1;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .btn {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="{{ url_for('static', filename='Images/logo.png') }}" alt="Neo Finance Logo" class="logo">
+    <h1>Neo Finance</h1>
+    <p>Empowering financial security with precision. Use AI-driven models to predict loan defaults and make smarter, data-informed credit decisions for a resilient tomorrow.</p>
+
+    <div class="btn-group">
+      <a href="/predict" class="btn">Single Prediction</a>
+      <a href="/batch_predict" class="btn">Batch Prediction</a>
+      <a href="/about" class="btn">About the Project</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 Neo Finance. All rights reserved.</p>
+  </div>
+
+</body>
+</html>
