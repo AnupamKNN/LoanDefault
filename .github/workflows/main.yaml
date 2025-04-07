@@ -22,13 +22,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Export DAGSHUB credentials
+      - name: Export Dagshub credentials
         run: |
           echo "DAGSHUB_USERNAME=${{ secrets.DAGSHUB_USERNAME }}" >> $GITHUB_ENV
           echo "DAGSHUB_TOKEN=${{ secrets.DAGSHUB_TOKEN }}" >> $GITHUB_ENV
 
       - name: Run training pipeline
-        run: python loandefault/pipeline/training_pipeline.py
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          python loandefault/pipeline/training_pipeline.py
 
   build-and-push:
     runs-on: ubuntu-latest
