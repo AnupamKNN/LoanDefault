@@ -30,9 +30,9 @@ import dagshub
 # if os.getenv("CI") != "true":
 #     dagshub.init(repo_owner='AnupamKNN', repo_name='LoanDefault', mlflow=True)
 
-os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/AnupamKNN/LoanDefault.mlflow"
-os.environ["MLFLOW_TRACKING_USERNAME"]="AnupamKNN"
-os.environ["MLFLOW_TRACKING_PASSWORD"]="3f5e99caaa4968e020a3c94c86d248172765126b"
+os.environ["MLFLOW_TRACKING_URI"] = os.getenv("MLFLOW_TRACKING_URI")
+os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("MLFLOW_TRACKING_USERNAME")
+os.environ["MLFLOW_TRACKING_PASSWORD"] = os.getenv("MLFLOW_TRACKING_PASSWORD")
 
 
 class ModelTrainer:

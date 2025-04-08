@@ -51,9 +51,9 @@ class LoanDataExtract():
             raise LoanDefaultException(e, sys)
         
 if __name__ == "__main__":
-    FILE_PATH = "Loan_Data/cleaned_data.csv"
+    FILE_PATH = "Loan_Data/raw_future_data/future_loan_default_dataset.csv"
     DATABASE = "ANUPAM_Neo"
-    Collection = "LoanData"
+    Collection = "LoanData2"
     employee_obj = LoanDataExtract()
     records = employee_obj.csv_to_json_convertor(file_path=FILE_PATH)
     print(records)

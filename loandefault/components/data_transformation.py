@@ -92,13 +92,35 @@ class DataTransformation:
             train_df = DataTransformation.read_data(self.data_validation_artifact.valid_train_file_path)
             test_df = DataTransformation.read_data(self.data_validation_artifact.valid_test_file_path)
 
-            # Extract input features and target features for training
+            # Extract input features and target features
             input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN], axis=1)
             target_feature_train_df = train_df[TARGET_COLUMN].values.reshape(-1, 1)
 
-            # Extract input features and target features for testing
             input_feature_test_df = test_df.drop(columns=[TARGET_COLUMN], axis=1)
             target_feature_test_df = test_df[TARGET_COLUMN].values.reshape(-1, 1)
+
+            # Load schema and extract expected columns
+            self.schema_config = read_yaml_file(SCHEMA_FILE_PATH)
+            expected_columns = [list(col.keys())[0] for col in self.schema_config["numerical_columns"] + self.schema_config["categorical_columns"]]
+
+            # Handle and log any column mismatches
+            missing_train = set(expected_columns) - set(input_feature_train_df.columns)
+            extra_train = set(input_feature_train_df.columns) - set(expected_columns)
+            if missing_train:
+                logging.warning(f"Missing columns in training data: {missing_train}")
+            if extra_train:
+                logging.info(f"Extra columns in training data (will be dropped): {extra_train}")
+
+            missing_test = set(expected_columns) - set(input_feature_test_df.columns)
+            extra_test = set(input_feature_test_df.columns) - set(expected_columns)
+            if missing_test:
+                logging.warning(f"Missing columns in test data: {missing_test}")
+            if extra_test:
+                logging.info(f"Extra columns in test data (will be dropped): {extra_test}")
+
+            # Drop extra columns to align with schema
+            input_feature_train_df = input_feature_train_df[expected_columns]
+            input_feature_test_df = input_feature_test_df[expected_columns]
 
             # Apply preprocessing
             preprocessor = self.get_data_transformer_object()
@@ -162,6 +184,10 @@ class DataTransformation:
                 transformed_test_file_path=self.data_transformation_config.transformed_test_file_path
             )
             return data_transformation_artifact
+
+        except Exception as e:
+            raise LoanDefaultException(e, sys)
+
 
         except Exception as e:
             raise LoanDefaultException(e, sys)
