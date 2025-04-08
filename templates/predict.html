@@ -147,22 +147,22 @@
     <div class="glass-container">
         <h2>Loan Default Prediction</h2>
         <form action="/predict" method="POST">
-            <label for="Applicant_Income">Applicant Income</label>
+            <label for="Applicant_Income">Applicant Income (in $100,000)</label>
             <input type="text" name="Applicant_Income" required>
 
-            <label for="Loan_Amount">Loan Amount</label>
+            <label for="Loan_Amount">Loan Amount (in $100,000)</label>
             <input type="text" name="Loan_Amount" required>
 
-            <label for="Credit_Score">Credit Score</label>
+            <label for="Credit_Score">Credit Score (between 300 and 850)</label>
             <input type="text" name="Credit_Score" required>
 
-            <label for="Previous_Defaults">Previous Defaults</label>
+            <label for="Previous_Defaults">Previous Defaults (between 0 - 5)</label>
             <input type="text" name="Previous_Defaults" required>
 
-            <label for="Interest_Rate">Interest Rate (%)</label>
+            <label for="Interest_Rate">Interest Rate (ex. %9.5)</label>
             <input type="text" name="Interest_Rate" required>
 
-            <label for="Number_of_Dependents">Number of Dependents</label>
+            <label for="Number_of_Dependents">Number of Dependents (between 0 and 10)</label>
             <input type="text" name="Number_of_Dependents" required>
 
             <label for="Loan_Purpose">Loan Purpose</label>
