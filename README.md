@@ -1,4 +1,4 @@
-# <b>Loan Default Prediction using Machine Learning</b>
+# <b>Neo Finance Loan Default Prediction using Machine Learning</b>
 
 [Link to Live Project](https://neo-finance-loan-default-prediction.onrender.com)
 
