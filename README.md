@@ -1,5 +1,9 @@
 # <b>Loan Default Prediction using Machine Learning</b>
 
+[Link to Live Project](https://neo-finance-loan-default-prediction.onrender.com)
+
+---
+
 ## 🏢 About the Company
 
 **NeoFinance** is a leading fintech company founded in 2015, specializing in **personal**, **home**, and **business loans** for individuals and SMEs. With over **2 million customers** across India, Southeast Asia, and the Middle East, the company uses a **digital-first approach** to approve loans within minutes.
