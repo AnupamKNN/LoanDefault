@@ -147,11 +147,6 @@ Using Docker is the fastest way to get the application running, as it bypasses t
     ```bash
     docker run -p 8000:8000 ghcr.io/AnupamKNN/LoanDefault:latest
     ```
-    * **Need an API Key?** If your AI application requires an API key, pass it as an environment variable when running the container:
-        ```bash
-        docker run -p 8000:8000 -e YOUR_API_KEY="your_actual_api_key_here" ghcr.io/AnupamKNN/LoanDefault:latest
-        ```
-        (Replace `YOUR_API_KEY` with the actual variable name your app expects, and `your_actual_api_key_here` with your key.)
 
 3.  **Access the Application:**
     Your Loan Default Prediction application should now be accessible in your web browser or via an API client at `http://localhost:8000`.
