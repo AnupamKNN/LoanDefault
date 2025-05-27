@@ -115,28 +115,84 @@ NeoFinance's current system leads to:
 
 ## 🛠 Installation & Setup
 
-1️⃣ Clone the Repository  
-```bash
-git clone (https://github.com/AnupamKNN/LoanDefault/edit/main/README.md)
-cd LoanDefaultPrediction
-```
+Absolutely! Here's a revised `README.md` section that prioritizes the Docker approach while still providing instructions for a local setup. I've corrected the `git clone` URL as well.
 
-2️⃣ Create a Virtual Environment and Install Dependencies  
-```bash
-python3.10 -m venv venv
-source venv/bin/activate  # For Linux/macOS
-# OR
-venv\Scripts\activate     # For Windows
+---
 
-pip install -r requirements.txt
-```
+## 🚀 Getting Started
 
-Alternatively, using Conda:
-```bash
-conda create --name venv python=3.10 -y
-conda activate venv
-pip install -r requirements.txt
-```
+You have two primary ways to run this application: the recommended **Docker method** for quick and easy setup, or a **manual local installation** for development and contribution.
+
+---
+
+### 🐳 Option 1: Run with Docker (Recommended)
+
+Using Docker is the fastest way to get the application running, as it bypasses the need for local dependency management.
+
+**Prerequisites:**
+
+* Make sure you have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed on your system.
+
+**Steps:**
+
+1.  **Pull the Docker Image:**
+    We've pre-built and pushed the Docker image to GitHub Container Registry (GHCR). Pull it directly:
+    ```bash
+    docker pull ghcr.io/AnupamKNN/LoanDefault:latest
+    ```
+    *(**Note:** If your repository is private, you might need to authenticate with GHCR first using `docker login ghcr.io`. You'd typically use a GitHub Personal Access Token for this.)*
+
+2.  **Run the Docker Container:**
+    Once the image is pulled, you can run the application. We'll map port `8000` from the container to your local machine (adjust if your app uses a different port).
+    ```bash
+    docker run -p 8000:8000 ghcr.io/AnupamKNN/LoanDefault:latest
+    ```
+    * **Need an API Key?** If your AI application requires an API key, pass it as an environment variable when running the container:
+        ```bash
+        docker run -p 8000:8000 -e YOUR_API_KEY="your_actual_api_key_here" ghcr.io/AnupamKNN/LoanDefault:latest
+        ```
+        (Replace `YOUR_API_KEY` with the actual variable name your app expects, and `your_actual_api_key_here` with your key.)
+
+3.  **Access the Application:**
+    Your Loan Default Prediction application should now be accessible in your web browser or via an API client at `http://localhost:8000`.
+
+---
+
+### 🛠 Option 2: Manual Local Setup (For Development)
+
+If you prefer to set up the project locally for development, contributions, or to inspect the code directly, follow these steps:
+
+**Prerequisites:**
+
+* **Python 3.10** or higher installed.
+
+1.  **Clone the Repository:**
+    Get the project files onto your local machine:
+    ```bash
+    git clone https://github.com/AnupamKNN/LoanDefault.git
+    cd LoanDefault
+    ```
+
+2.  **Create a Virtual Environment and Install Dependencies:**
+
+    **Using `venv` (recommended for Python projects):**
+    ```bash
+    python3.10 -m venv venv
+    source venv/bin/activate   # For Linux/macOS
+    # OR
+    .\venv\Scripts\activate    # For Windows
+    pip install -r requirements.txt
+    ```
+
+    **Alternatively, using Conda:**
+    ```bash
+    conda create --name loan-default-env python=3.10 -y
+    conda activate loan-default-env
+    pip install -r requirements.txt
+    ```
+
+3.  **Run the Application:**
+    *(**Important:** Add instructions here on how to start your specific Python application locally. For example, if it's a Flask or FastAPI app, it might be `python app.py` or `uvicorn main:app --host 0.0.0.0 --port 8000`.)*
 
 ### Explanation:
 1. Creates a Conda virtual environment** named `venv` with Python 3.10.
